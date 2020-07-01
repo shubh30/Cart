@@ -1,38 +1,10 @@
 import React from 'react';
 
 class CartItem extends React.Component {
-  
-
-  increaseQuantity = () => {
-    console.log(this.state);
-    
-    // setState form 1
-    // this.setState({
-    //   qty: this.state.qty + 1
-    // });
-
-    // setState form 2 - If prevState required use this
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty + 1
-      }
-    });
-  }
-
-  decreaseQuantity = () => {
-    const { qty } = this.state;
-    if(qty === 0) {
-      return;
-    }
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty - 1
-      }
-    });
-  }
 
   render() {
     const { price, title, qty } = this.props.product;
+    const { product, onIncreaseQuantity, onDecreaseQuantity, onDeleteProduct } = this.props;
     return(
       <div className="cart-item">
         <div className="left-block">
@@ -48,18 +20,19 @@ class CartItem extends React.Component {
               alt="increase" 
               className="action-icons" 
               src="https://image.flaticon.com/icons/svg/1828/1828919.svg" 
-              onClick={this.increaseQuantity}
+              onClick={ () => onIncreaseQuantity(product) }
             />
             <img 
               alt="decrease" 
               className="action-icons" 
               src="https://image.flaticon.com/icons/svg/1828/1828899.svg" 
-              onClick={this.decreaseQuantity}
+              onClick={ () => onDecreaseQuantity(product) }
             />
             <img 
               alt="delete" 
               className="action-icons" 
               src="https://image.flaticon.com/icons/svg/1345/1345823.svg" 
+              onClick={ () => onDeleteProduct(product.id) }
             />
           </div>
         </div>
